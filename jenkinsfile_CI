@@ -45,7 +45,7 @@ stages {
 
     stage('SonarQube Analysis') {
             environment{
-                sonarScan = tool 'sonar_5.0.0'
+                sonarScan = tool 'sonar_4.8.0'
             }
             steps {
             withSonarQubeEnv(credentialsId: 'sonar-token', installationName: 'Sonar-server-6.7.7'){
