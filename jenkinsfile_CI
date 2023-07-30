@@ -34,17 +34,12 @@ stages {
         }
       } */
 
-      stage('SonarQube Analysis') {
-                    environment{
-                        sonarScan = tool 'sonar_5.0.0'
-                    }
-                    steps {
-                    withSonarQubeEnv('Sonar-server-6.7.7') {
-                      sh "${env.sonarScan}/bin/sonar-scanner"
-                      sh "mvn sonar:sonar"
-                    }
-                    }
-                  }
+      stage('Code Review'){
+              withSonarQubeEnv('Sonar-server-6.7.7'){
+                  def mavenHome = tool name: "Maven-3.9.2", type: "maven"
+                  def mavenCMD = "${mavenHome}/bin/mvn"
+                  sh "${mavenCMD} sonar:sonar"
+              }
     stage('package'){
             steps{
                 withMaven(maven: 'maven_3.9.3') {
