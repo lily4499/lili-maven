@@ -48,7 +48,7 @@ stages {
                 sonarScan = tool 'sonar-token'
             }
             steps {
-            withSonarQubeEnv(credentialsId: 'sonar-token') {
+            withSonarQubeEnv(credentialsId: 'sonar-token', installationName: 'Sonar-server-6.7.7'){
               sh "${env.sonarScan}/bin/sonar-scanner"
             }
             }
