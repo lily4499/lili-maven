@@ -39,7 +39,7 @@ stages {
                         sonarScan = tool 'sonar_5.0.0'
                     }
                     steps {
-                    withSonarQubeEnv('Sonar-server6.7.7') {
+                    withSonarQubeEnv('Sonar-server-6.7.7') {
                       sh "${env.sonarScan}/bin/sonar-scanner"
                       sh "mvn sonar:sonar"
                     }
