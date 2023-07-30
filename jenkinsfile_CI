@@ -1,6 +1,6 @@
 pipeline {
 agent any
-tools { maven 'maven_3.8'}
+tools { maven 'maven_3.8.3'}
 stages {
     stage ('Git checkout'){
         steps {
@@ -23,7 +23,7 @@ stages {
             }
         }
 
-     stage('SonarQube Analysis') {
+     /* stage('SonarQube Analysis') {
         environment{
             sonarScan = tool 'ibt-sonarqube'
         }
@@ -32,7 +32,19 @@ stages {
           sh "${env.sonarScan}/bin/sonar-scanner"
         }
         }
-      }
+      } */
+
+      stage('SonarQube Analysis') {
+                    environment{
+                        sonarScan = tool 'sonar_5.0.0'
+                    }
+                    steps {
+                    withSonarQubeEnv('Sonar-server6.7.7') {
+                      sh "${env.sonarScan}/bin/sonar-scanner"
+                      sh "mvn sonar:sonar"
+                    }
+                    }
+                  }
     stage('package'){
             steps{
                 withMaven(maven: 'maven_3.9.3') {
